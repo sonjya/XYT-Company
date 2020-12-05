@@ -8,11 +8,14 @@
     <body>
     <!--navbar-->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/admin"><span class="mdi mdi-package-variant"></span> XYT</a>
+        <a class="navbar-brand" href="#"><span class="mdi mdi-package-variant"></span> XYT</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/ordertracker"><span class="mdi mdi-shopping-search"></span> Order Tracker</span></a>
+            </li>
             <a class="btn btn-outline-light my-2 my-sm-0" href="/login"><span class="mdi mdi-login-variant"></span> Login</span></a>
           </ul>
         </div>
@@ -66,7 +69,7 @@
                     <div class="card-header">Step 4</div>
                         <div class="card-body text">
                             <h5 class="card-title text-primary">Delivery</h5>
-                            <p class="card-text">Your parcel will be delivered as soon as possible</p>
+                            <p class="card-text">Your parcel will be delivered as soon as possible.</p>
                         </div>
                 </div>
             </div>

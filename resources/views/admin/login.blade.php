@@ -30,7 +30,7 @@
                         <input type="password" name="password" class="form-control" required>
                     </div>
                     <div class="col-sm-4">
-                        <br><button type="submit" class="btn btn-outline-success">Login</button>
+                        <br><button type="submit" class="btn btn-outline-success">Login</button><a href="/" class="btn btn-outline-danger m-2"> Back</a>
                     </div>
                     <br>
                     <div class="col-sm-5">

@@ -9,11 +9,19 @@
         @extends('frames.cnavbar')
         <br><br><br>
         <div class="container-fluid">
-            <div class="col-sm-8">
-                <div class="md-form mt-0">
+            <div class="row">
+                <div class="md-form col-sm-7">
                     <input class="form-control" name="itemsearch" type="text/submit" placeholder="Search" aria-label="Search" required>
+                </div>
+                <div class="col-sm-3">
+                    @if (session('msgerr'))
+                        <script>
+                            alert("Cart is empty")
+                        </script>
+                    @endif
                 </div> 
-            </div><br>
+            </div>
+            <br>
             <div class="row">
                 @foreach ($data as $item)
                 <form action="/addtocart" method="post">
@@ -29,6 +37,7 @@
                         </div>
                         @csrf
                         <div class="modal-body">
+                            <input type="hidden" name="itemid" value="{{$item->id}}">
                             <input type="hidden" name="productname" value="{{$item->product_name}}">
                             <input type="hidden" name="price" value="{{$item->price}}">
                             <p>Category: {{$item->category_name}}</p>
@@ -55,8 +64,6 @@
                             <strong>{{$item->product_name}}</strong>
                         </div>
                         <div class="card-body">
-                    
-                          {{-- <h5 class="card-title">{{$item->product_name}}</h5> --}}
                             <input type="hidden" value="{{$item->id}}">
                             <p class="card-text text-success">₱ {{$item->price}}</p>
                         <button class="btn btn-outline-dark" data-toggle="modal" data-target="#viewitem{{$item->id}}"><span class="mdi mdi-cart-plus"></span> View Item</button>

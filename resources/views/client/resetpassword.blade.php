@@ -64,6 +64,14 @@
                     </div>
                 </form>
                 
+                @if (session('msgerr'))
+                <div class="col-sm8">
+                    <div class="alert alert-danger" role="alert">
+                            {{session('msgerr')}}
+                        </div>
+                    </div>
+                @endif
+                    
             </div>
         </div>
     @extends('frames.footer')

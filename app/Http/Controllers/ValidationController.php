@@ -62,22 +62,26 @@ class ValidationController extends Controller
             session(['questionreset' => $rquestion]);
             return redirect('/reset');
         } else {
-            return redirect()->back();
+            return redirect()->back()->with(['msgerr' => 'Username does not exist.']);
         }
     }
 
     public function resetPassword(Request $request){
-        $data = User::where('username',$request->username)->where('secureanswer',md5($request->answer))->get();
+        $data = User::where('username',$request->username)->where('secureanswer',md5($request->answer))->get('id');
+        foreach($data as $d){
+            $id = $d->id;
+        }
         if(count($data)){
             if($request->password1===$request->password2){
-                $user = new User;
+                $user = User::find($id);
                 $user->password = md5($request->password1);
+                $user->save();
                 return redirect('/login');
             } else {
-                return redirect()->back(); 
+                return redirect()->back()->with(['msgerr' => "Password doesn't match"]); 
             }
         } else {
-            return redirect()->back();
+            return redirect()->back()->with(['msgerr' => 'You answer is incorrect.']);
         }
     }
 
@@ -85,10 +89,11 @@ class ValidationController extends Controller
 
         if($request->password1===$request->password2){
             try{
-                $user = new user;
+                $user = new User;
                 $user->name = $request->fullname;
                 $user->email = $request->email;
                 $user->phonenumber = $request->phonenumber;
+                $user->address = $request->address;
                 $user->username = $request->username;
                 $user->role='client';
                 $user->password = md5($request->password1);
@@ -96,7 +101,7 @@ class ValidationController extends Controller
                 $user->secureanswer = md5($request->answer);
                 $user->save();
             } catch (Throwable $e){
-                return redirect()->back()->with('msgerr', 'username already used, try another one');
+                return redirect()->back()->with('msgerr', 'Username already used, try another one');
             }
             return redirect('/login')->with('msg','Profile Registered');
         } else {

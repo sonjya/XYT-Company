@@ -38,6 +38,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                      <label for="address" class="col-sm-2 col-form-label">Address</label>
+                      <div class="col-sm-10">
+                        <input name="address" type="text" class="form-control" required>
+                      </div>
+                  </div>
+
                     <br>
                     <hr>
 

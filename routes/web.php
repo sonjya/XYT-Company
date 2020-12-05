@@ -4,8 +4,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ValidationController;
-use App\Http\Controllers\ShopController;
-use App\Models\Cart;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ShopController; 
 use Illuminate\Support\Facades\Route;
 
 
@@ -41,16 +41,21 @@ Route::get('/admin', function () {
     } else {
         return redirect()->back();
     }
-    // return view('admin.index');
+
 });
 
-Route::get('/ordertracker', function() {
-    $auth = session('role');
-    if($auth==='client'){
-        return view('client.ordertracker');
+Route::get('/transaction', function () {
+    $data = session('role');
+    if($data==='admin'){
+        return view('admin.transaction');
     } else {
         return redirect()->back();
     }
+
+});
+
+Route::get('/ordertracker', function() {
+    return view('client.ordertracker1');
 });
 
 Route::get('/register', function(){
@@ -65,6 +70,9 @@ Route::get('/reset', function(){
     return view('client.resetpassword');
 });
 
+Route::get('/order-tracker', [TransactionController::class, 'viewOrderStatus']);
+Route::post('/trackorder', [TransactionController::class, 'search']);
+Route::post('/checkout', [CartController::class, 'payment']);
 Route::get('/cart', [CartController::class, 'getCart']);
 Route::post('/cartremove', [CartController::class, 'removeCart']);
 Route::get('/shop', [ShopController::class, 'getItem']);

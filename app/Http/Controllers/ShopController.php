@@ -16,4 +16,5 @@ class ShopController extends Controller
             return redirect()->back();
         }
     }
+
 }

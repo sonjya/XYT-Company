@@ -22,6 +22,12 @@
                           <input name="username" type="text/submit" class="form-control" required>
                         </div>
                     </div>
+
+                    @if (session('msgerr'))
+                    <div class="alert alert-danger" role="alert">
+                        {{session('msgerr')}}
+                      </div>
+                    @endif
                     
                     
                     <div class="form-group row">

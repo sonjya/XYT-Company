@@ -10,7 +10,7 @@
           <a class="nav-link" href="/products">Products <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#">Transactions <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/transaction">Transactions <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="#">Inventory <span class="sr-only">(current)</span></a>

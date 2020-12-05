@@ -5,7 +5,7 @@
     </button>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/ordertracker"><span class="mdi mdi-shopping-search"></span> Order Tracker</span></a>
+          <a class="nav-link" href="/order-tracker"><span class="mdi mdi-shopping-search"></span> Order Tracker</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="/shop"><span class="mdi mdi-cart"></span> Shop</span></a>
