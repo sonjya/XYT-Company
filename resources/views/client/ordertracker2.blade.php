@@ -52,7 +52,33 @@
                 </div>
             </div>
         </div>
-
+        <br><hr><br>
+        <div class="container">
+          <div class="row">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Tracking Number</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Total Amount</th>
+                  <th scope="col">Payment Method</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($data as $item)
+                <tr>
+                  <td>{{$item->trackingID}}</td>
+                  <td>{{$item->name}}</td>
+                  <td>{{$item->price}}</td>
+                  <td>{{$item->paymentmethod}}</td>
+                  <td>{{$item->status}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>  
+          </div>
+        </div>
 
 
         @extends('frames.footer')

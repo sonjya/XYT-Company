@@ -13,13 +13,15 @@
                 <div class="md-form col-sm-7">
                     <input class="form-control" name="itemsearch" type="text/submit" placeholder="Search" aria-label="Search" required>
                 </div>
-                <div class="col-sm-3">
-                    @if (session('msgerr'))
-                        <script>
-                            alert("Cart is empty")
-                        </script>
-                    @endif
-                </div> 
+                @if (session('msgerr'))
+                <script>
+                    alert("Cart is empty")
+                </script>
+                @elseif (session('msgerrr'))
+                <script>
+                    alert("Error in Quantity")
+                </script>
+                @endif 
             </div>
             <br>
             <div class="row">
@@ -40,6 +42,7 @@
                             <input type="hidden" name="itemid" value="{{$item->id}}">
                             <input type="hidden" name="productname" value="{{$item->product_name}}">
                             <input type="hidden" name="price" value="{{$item->price}}">
+                            <input type="hidden" name="stocks" value="{{$item->stocks}}">
                             <p>Category: {{$item->category_name}}</p>
                             <p>Supplier: {{$item->supplier_name}}</p>
                             <p>Price: {{$item->price}}</p>
@@ -51,13 +54,14 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-outline-success"><span class="mdi mdi-cart-arrow-down"></span>Add to Cart</button>
+                            <button type="submit" class="btn btn-outline-success"><span class="mdi mdi-cart-arrow-down"></span>Add to Cart</button>
                         </div>
                     </div>
                     </div>
                 </div>
             </form>
 
+                @if ($item->stocks!=0)
                 <div class="col-sm-2 m-2">
                     <div class="card" style="width: 17rem;">
                         <div class="card-header bg-dark text-white">
@@ -70,6 +74,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 @endforeach 
             </div>
             

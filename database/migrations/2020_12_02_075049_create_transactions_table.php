@@ -18,8 +18,10 @@ class CreateTransactionsTable extends Migration
             $table->string('trackingID');
             $table->string('name');
             $table->double('price');
+            $table->string('paymentmethod');
             $table->string('status');
             $table->integer('active');
+            $table->string('updatedby');
             $table->timestamps();
         });
     }

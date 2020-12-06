@@ -11,22 +11,26 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     public function addtoCart(Request $request){
-        $cart = new Cart;
-        $cart->user_id = session('id');
-        $cart->item_id = $request->itemid;
-        $cart->product_name = $request->productname;
-        $cart->price = $request->price;
-        $cart->quantity = $request->quantity;
-        $cart->save();
-
-        $item = Product::find($request->itemid);
-        $item->stocks = ($item->stocks) - ($request->quantity);
-        $item->save();
-
-        $id = session('id');
-        $count = Cart::where('user_id',$id)->count();
-        session(['cart' => $count]);
-        return redirect('/shop');
+        if($request->stocks >= $request->quantity){
+            $cart = new Cart;
+            $cart->user_id = session('id');
+            $cart->item_id = $request->itemid;
+            $cart->product_name = $request->productname;
+            $cart->price = $request->price;
+            $cart->quantity = $request->quantity;
+            $cart->save();
+            
+            $item = Product::find($request->itemid);
+            $item->stocks = ($item->stocks) - ($request->quantity);
+            $item->save();
+            
+            $id = session('id');
+            $count = Cart::where('user_id',$id)->count();
+            session(['cart' => $count]);
+            return redirect('/shop');
+        } else {
+            return redirect('/shop')->with(['msgerrr' => "aw"]);
+        }
     }
 
     public function getCart(){
@@ -69,6 +73,7 @@ class CartController extends Controller
         $data->trackingID = "TRXYT20" . Transaction::all()->count() . "LVPH";
         $data->name = session('name');
         $data->price = $request->total;
+        $data->paymentmethod = $request->paymethod;
         $data->active = 1;
         $data->status = "pending";
         $data->save();

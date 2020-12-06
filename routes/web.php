@@ -44,16 +44,6 @@ Route::get('/admin', function () {
 
 });
 
-Route::get('/transaction', function () {
-    $data = session('role');
-    if($data==='admin'){
-        return view('admin.transaction');
-    } else {
-        return redirect()->back();
-    }
-
-});
-
 Route::get('/ordertracker', function() {
     return view('client.ordertracker1');
 });
@@ -70,6 +60,7 @@ Route::get('/reset', function(){
     return view('client.resetpassword');
 });
 
+Route::get('/transaction', [TransactionController::class, 'getTransactions']);
 Route::get('/order-tracker', [TransactionController::class, 'viewOrderStatus']);
 Route::post('/trackorder', [TransactionController::class, 'search']);
 Route::post('/checkout', [CartController::class, 'payment']);
@@ -90,3 +81,9 @@ Route::post('/product/additem', [ProductController::class, 'addItem']);
 Route::get('/product/restore/{id}', [ProductController::class, 'restoreItem']);
 Route::post('/product/search', [ProductController::class, 'searchItem']);
 Route::post('/product/update', [ProductController::class, 'updateItem']);
+
+//transaction updates
+Route::get('/transaction/pending/{id}',[TransactionController::class,'pending']);
+Route::get('/transaction/processing/{id}',[TransactionController::class,'processing']);
+Route::get('/transaction/receiving/{id}',[TransactionController::class,'receiving']);
+Route::get('/transaction/completed/{id}',[TransactionController::class,'completed']);

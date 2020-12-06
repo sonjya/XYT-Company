@@ -65,15 +65,16 @@
                         <div class="modal-body">
                             <h4>Payment Method:</h4>
                             <select name="paymethod" id="paymethod" class="form-control">
-                                <option value="Visa">Visa</option>
-                                <option value="PayPal">PayPal</option>
-                                <option value="Master Card">Master Card</option>
+                                <option value="Visa (Paid)">Visa</option>
+                                <option value="PayPal (Paid)">PayPal</option>
+                                <option value="Master Card (Paid)">Master Card</option>
+                                <option value="COD">COD</option>
                             </select>
                             <hr>
                               <h6>Card Number:</h6>
-                              <input type="number" name="cardnumber" class="form-control" required>
+                              <input type="number" name="cardnumber" class="form-control">
                               <h6>Securit Code:</h6>
-                              <input type="text" maxlength="4" name="securitycode" class="form-control" required autocomplete="off">
+                              <input type="text" maxlength="4" name="securitycode" class="form-control" autocomplete="off">
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3 m-2">

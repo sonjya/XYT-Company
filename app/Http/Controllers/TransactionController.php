@@ -20,9 +20,9 @@ class TransactionController extends Controller
     }
 
     public function getTransactions(Request $request){
-        $data = Transaction::where('active', 1)->get();
+        $data = Transaction::orderbyDESC('id')->get();
         $auth = session('role');
-        if($auth==='isadmin'){
+        if($auth==='admin'){
             return view('admin.transaction',compact('data'));
         } else {
             return redirect()->back();
@@ -32,11 +32,44 @@ class TransactionController extends Controller
     public function viewOrderStatus(){
         $auth = session('role');
         if($auth==='client'){
-            $data = Transaction::where('name',session('name'))->get();   
+            $data = Transaction::where('name',session('name'))->orderbyDESC('id')->get();   
             return view('client.ordertracker2',compact('data'));
         } else {
             return redirect()->back();
         }
         
+    }
+
+    public function pending($id){
+        $data = Transaction::find($id);
+        $data->status = "pending";
+        $data->updatedby = session('name');
+        $data->save();
+        return redirect('/transaction');
+    }
+    
+    public function processing($id){
+        $data = Transaction::find($id);
+        $data->status = "processing";
+        $data->updatedby = session('name');
+        $data->save();
+        return redirect('/transaction');
+    }
+    
+    public function receiving($id){
+        $data = Transaction::find($id);
+        $data->status = "receiving";
+        $data->updatedby = session('name');
+        $data->save();
+        return redirect('/transaction');
+    }
+
+    public function completed($id){
+        $data = Transaction::find($id);
+        $data->status = "completed";
+        $data->updatedby = session('name');
+        $data->active = 0;
+        $data->save();
+        return redirect('/transaction');
     }
 }

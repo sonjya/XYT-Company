@@ -30,7 +30,7 @@
                 <a href="/product/addproduct" class="btn btn-outline-primary"><span class="mdi mdi-package-up"></span> Add New Product</a>
             </div>
         </div><br />
-        <table class="table table-striped">
+        <table class="table">
           <thead class="thead-dark">
             <tr>
               <th>Product Name</th>
@@ -42,9 +42,15 @@
           <tbody>
             @foreach ($data as $item)
             <tr>
-                <td>{{$item->product_name}}</td>
-                <td>{{$item->supplier_name}}</td>
-                <td>{{$item->stocks}}</td>
+                @if ($item->stocks <= 30)
+                  <td class="text-danger">{{$item->product_name}}</td>
+                  <td class="text-danger">{{$item->supplier_name}}</td>
+                  <td class="text-danger">{{$item->stocks}}</td>                    
+                @else
+                  <td>{{$item->product_name}}</td>
+                  <td>{{$item->supplier_name}}</td>
+                  <td>{{$item->stocks}}</td>
+                @endif
                     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">

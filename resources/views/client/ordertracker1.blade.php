@@ -36,8 +36,14 @@
 
         <hr>
         <br><br><br>
-        @if (session('tracked'))
-          <h2>Hello! Your package is <u>{{session('tracked')}}</u></h2>
+        @if (session('tracked')==='pending')
+          <h2>Hello! Our team still working on your order and is currently pending for review. We're sorry for any inconvenience. You can contact us as <u>info@xyt.com</u>, thank you!</h2>
+        @elseif(session('tracked')==='processing')
+          <h2>Hello! We are now processing your order and preparing to ship the items from our hub to your door. Thank you!</h2>
+        @elseif(session('tracked')==='receiving')
+          <h2>Hello! We're happy to tell you that our team already shipped your parcel and is not heading to your address. Expect the item in no time! Thank you.</h2>
+        @elseif(session('tracked')==='completed')
+          <h2>Hello! Thank you for your purchase at our store, <a href="/login">shop again!</a></h2>
         @elseif(session('msgerr'))
           <h2>Sorry we can't find your parcel at this moment. Make sure that you entered the correct Tracking ID.</h2>
         @endif
