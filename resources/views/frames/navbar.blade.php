@@ -13,7 +13,7 @@
           <a class="nav-link" href="/transaction">Transactions <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="/reports">Reports <span class="sr-only">(current)</span></a>
+            <a class="nav-link" data-toggle="modal" data-target="#reportModal">Reports <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="#">Users <span class="sr-only">(current)</span></a>
@@ -27,3 +27,36 @@
       </ul>
     </div>
   </nav>
+
+  {{-- this is a modal for reports date picker --}}
+
+  <form action="/reports" method="post">
+    @csrf
+    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sales Report</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h3>SELECT DATES</h3> 
+            <label for="date1">From: </label>
+            <div class="col-sm-10">
+              <input type="date" name="date1" id="date1" class="form-control" required>
+            </div>
+            <label for="date2">To: </label>
+            <div class="col-sm-10">
+              <input type="date" name="date2" id="date2" class="form-control" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-outline-success"><span class="mdi mdi-newspaper"></span> Generate Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>

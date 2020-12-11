@@ -65,7 +65,7 @@ Route::get('/numberverification', function() {
 });
 
 Route::post('/verify',[ValidationController::class,'phonenumberValidation']);
-Route::get('/reports', [TransactionController::class, 'getReports']);
+Route::post('/reports', [TransactionController::class, 'getReports']);
 Route::get('/transaction', [TransactionController::class, 'getTransactions']);
 Route::get('/order-tracker', [TransactionController::class, 'viewOrderStatus']);
 Route::post('/trackorder', [TransactionController::class, 'search']);

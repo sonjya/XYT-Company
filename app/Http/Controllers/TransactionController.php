@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -73,11 +74,9 @@ class TransactionController extends Controller
         return redirect('/transaction');
     }
 
-    public function getReports(){
-        if(session('role')==='admin'){
-            return view('admin.reports');
-        } else {
-            return redirect()->back();
-        }
-    }
+    public function getReports(Request $request){
+        $data = Transaction::where('created_at', '<', $request->date2)->where('created_at','>',$request->date1)->where('status', '!=', 'pending')->orderby('id')->get();
+        //DB::raw('sum(price) as price')
+        return view('admin.reports',compact('data'));
+    }   
 }
