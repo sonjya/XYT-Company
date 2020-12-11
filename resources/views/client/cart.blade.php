@@ -65,17 +65,38 @@
                         <div class="modal-body">
                             <h4>Payment Method:</h4>
                             <select name="paymethod" id="paymethod" class="form-control">
+                                <option value="COD">COD</option>
                                 <option value="Visa (Paid)">Visa</option>
                                 <option value="PayPal (Paid)">PayPal</option>
                                 <option value="Master Card (Paid)">Master Card</option>
-                                <option value="COD">COD</option>
                             </select>
                             <hr>
-                              <h6>Card Number:</h6>
-                              <input type="number" name="cardnumber" class="form-control">
-                              <h6>Securit Code:</h6>
-                              <input type="text" maxlength="4" name="securitycode" class="form-control" autocomplete="off">
-                            <hr>
+                            @if (session('age') >= 60)
+                            <div class="row">
+                                <div class="col-sm-3 m-2">
+                                    <h5>Subtotal:</h5>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="number" name="subtotal" value="{{$total}}" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 m-2">
+                                    <h5>Discount:</h5>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="number" name="discount" value="{{$total * .10}}" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 m-2">
+                                    <h5>Total:</h5>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="number" name="total" value="{{$total - ($total * .10)}}" class="form-control" readonly>
+                                </div>
+                            </div>
+                            @else
                             <div class="row">
                                 <div class="col-sm-3 m-2">
                                     <h5>Total:</h5>
@@ -84,6 +105,7 @@
                                     <input type="number" name="total" value="{{$total}}" class="form-control" readonly>
                                 </div>
                             </div>
+                            @endif
                         </div>
                         <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-success"><span class="mdi mdi-cart-outline"></span>Purchase</button>

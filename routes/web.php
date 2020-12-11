@@ -7,7 +7,7 @@ use App\Http\Controllers\ValidationController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ShopController; 
 use Illuminate\Support\Facades\Route;
-
+use Mockery\VerificationExpectation;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +60,12 @@ Route::get('/reset', function(){
     return view('client.resetpassword');
 });
 
+Route::get('/numberverification', function() {
+    return view('client.phoneverification');
+});
+
+Route::post('/verify',[ValidationController::class,'phonenumberValidation']);
+Route::get('/reports', [TransactionController::class, 'getReports']);
 Route::get('/transaction', [TransactionController::class, 'getTransactions']);
 Route::get('/order-tracker', [TransactionController::class, 'viewOrderStatus']);
 Route::post('/trackorder', [TransactionController::class, 'search']);

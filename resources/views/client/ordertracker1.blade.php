@@ -8,7 +8,7 @@
     <body>
          <!--navbar-->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"><span class="mdi mdi-package-variant"></span> XYT</a>
+        <a class="navbar-brand" href="/"><span class="mdi mdi-package-variant"></span> XYT</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,7 +41,7 @@
         @elseif(session('tracked')==='processing')
           <h2>Hello! We are now processing your order and preparing to ship the items from our hub to your door. Thank you!</h2>
         @elseif(session('tracked')==='receiving')
-          <h2>Hello! We're happy to tell you that our team already shipped your parcel and is not heading to your address. Expect the item in no time! Thank you.</h2>
+          <h2>Hello! We're happy to tell you that our team already shipped your parcel and is now heading to your address. Expect the item in no time! Thank you.</h2>
         @elseif(session('tracked')==='completed')
           <h2>Hello! Thank you for your purchase at our store, <a href="/login">shop again!</a></h2>
         @elseif(session('msgerr'))

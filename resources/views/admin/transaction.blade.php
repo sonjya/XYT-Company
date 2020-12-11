@@ -8,7 +8,6 @@
     <body>
     @extends('frames.navbar')
     <br><br><br>
-    
     <div class="container">
         <table class="table">
             <thead class="thead-dark">

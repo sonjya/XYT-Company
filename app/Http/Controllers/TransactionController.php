@@ -72,4 +72,12 @@ class TransactionController extends Controller
         $data->save();
         return redirect('/transaction');
     }
+
+    public function getReports(){
+        if(session('role')==='admin'){
+            return view('admin.reports');
+        } else {
+            return redirect()->back();
+        }
+    }
 }

@@ -39,11 +39,18 @@
                     </div>
 
                     <div class="form-group row">
-                      <label for="address" class="col-sm-2 col-form-label">Address</label>
+                      <label for="address" class="col-sm-2 col-form-label">Address: </label>
                       <div class="col-sm-10">
                         <input name="address" type="text" class="form-control" required>
                       </div>
-                  </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="bday" class="col-sm-2 col-form-label">Birth Date: </label>
+                      <div class="col-sm-10">
+                        <input name="bday" type="date" class="form-control" required>
+                      </div>
+                    </div>
 
                     <br>
                     <hr>
@@ -99,7 +106,7 @@
 
                     <br>
                     <hr>
-                    <br>
+                    <p>By clicking Register, you agree to our Terms, Data Policy and Cookies Policy. You may receive SMS Notifications from us and can opt out any time.</p>
                     @if (session('msgerr'))
                         <div class="alert alert-danger" role="alert">
                             {{session('msgerr')}}
