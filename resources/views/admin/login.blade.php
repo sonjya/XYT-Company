@@ -52,10 +52,13 @@
                 </form>    
             </div>
             
-            <div class="col-sm-5 ml-auto">
+            <div class="col-5">
                 <div class="jumbotron">
                     <h1 class="display-4">Hello!</h1>
-                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <p class="lead">XYT Company offers online market with a wide variety of options from motorcycle parts, auto parts, 
+                        furniture supplies, lightings, plastic wares, electronic supplies and hardware supplies. We connect 
+                        suppliers direct to consumers with just a few clicks at your fingertips</p>
+                    <p class="lead">Avoid the long queue in the market. Shop now and have your basic needs delivered to you!</p>
                     <hr class="my-4">
                     <p>If you have any concerns, you can call us with our hotline or email us.</p>
                     <p class="lead">

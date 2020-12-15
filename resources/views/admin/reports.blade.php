@@ -33,12 +33,15 @@
               @endforeach
             </tbody>
           </table>
+          <br>
+          <hr>
+          <h5>Sales Report from <strong>{{session('datefrom')}}</strong> to <strong>{{session('dateto')}}</strong></h5>
           <hr>
           <div class="row">
                 <div class="col-sm-2"> </div>
 
                 <div class="col-sm-4">
-                    <div class="card" style="width: 17rem;">
+                    <div class="card" style="width:17rem;">
                         <div class="card-header bg-dark text-white">
                             <strong>Total Sales</strong>
                         </div>
