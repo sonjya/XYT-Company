@@ -75,7 +75,7 @@ class TransactionController extends Controller
     }
 
     public function getReports(Request $request){
-        $data = Transaction::where('created_at', '<', $request->date2)->where('created_at','>',$request->date1)->where('status', '!=', 'pending')->orderby('id')->get();
+        $data = Transaction::where('created_at', '<', $request->date2)->where('created_at','>',$request->date1)->where('status', '=', 'completed')->orderby('id')->get();
         //DB::raw('sum(price) as price')
         session(['datefrom' => $request->date1]);
         session(['dateto' => $request->date2]);
