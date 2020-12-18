@@ -46,6 +46,7 @@ class ProductController extends Controller
         $product->save();  
         return redirect('/deletedproducts');
     }
+    
     public function addItem(Request $request){        
         $product = new Product;
         $product->product_name = $request->productname;

@@ -25,7 +25,11 @@
                             <td>{{$item->product_name}}</td>
                             <td>{{$item->price}}</td>
                             <td>{{$item->quantity}}</td>
-                            <td>{{$subtotal = ($item->price) * ($item->quantity)}}</td>
+                            @if (session('age') >= 60)
+                                <td>{{round($subtotal = (($item->price) * ($item->quantity)) - (($item->price) * ($item->quantity) * .12),2)}}</td>
+                            @else
+                                <td>{{round($subtotal = ($item->price) * ($item->quantity),2)}}</td>
+                            @endif
                             <input type="hidden" value="{{$total += $subtotal}}">
                             <form action="/cartremove" method="post">
                                 @csrf
@@ -43,7 +47,7 @@
                     <h3>Total:</h3>
                 </div>
                 <div class="col-sm-2">
-                    <input type="number" name="total" id="total" value="{{$total}}" class="form-control" readonly>
+                    <input type="number" name="total" id="total" value="{{round($total,2)}}" class="form-control" readonly>
                 </div>
                 <div class="col-sm-2 ml-auto">
                     <button class="btn btn-outline-warning" data-toggle="modal" data-target="#paymentmethod"><span class="mdi mdi-cart-outline"></span> Checkout</button>
@@ -77,7 +81,7 @@
                                     <h5>Subtotal:</h5>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="number" name="subtotal" value="{{$total}}" class="form-control" readonly>
+                                    <input type="number" name="subtotal" value="{{round($total,2)}}" class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -85,7 +89,7 @@
                                     <h5>Discount:</h5>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="number" name="discount" value="{{$total * .10}}" class="form-control" readonly>
+                                    <input type="number" name="discount" value="{{round($total * .20,2)}}" class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -93,7 +97,7 @@
                                     <h5>Total:</h5>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="number" name="total" value="{{$total - ($total * .10)}}" class="form-control" readonly>
+                                    <input type="number" name="total" value="{{round($total - ($total * .20),2)}}" class="form-control" readonly>
                                 </div>
                             </div>
                             @else
@@ -102,7 +106,7 @@
                                     <h5>Total:</h5>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="number" name="total" value="{{$total}}" class="form-control" readonly>
+                                    <input type="number" name="total" value="{{round($total,2)}}" class="form-control" readonly>
                                 </div>
                             </div>
                             @endif
