@@ -13,7 +13,7 @@ class ValidationController extends Controller
 {
 
     public function authenticate(Request $request) 
-    {
+    {   
         $data = request()->validate([
             'username' =>  'required',
             'password' => 'required',
@@ -52,12 +52,12 @@ class ValidationController extends Controller
             } else {
                 session(['name' => '']);
                 session(['id',$id]);
-                session(['role' => '']);
+                session(['role' => '']);    
                 session(['age' => '']);
                 return redirect('/');
             }
         } else {
-            return redirect()->back()->with('msgerr','Username and Password mismatched');
+            return redirect()->back()->with('msgerr','Username and Password mismatched. Entries Left: ');
         }
     }
 
@@ -85,6 +85,7 @@ class ValidationController extends Controller
             if($request->password1===$request->password2){
                 $user = User::find($id);
                 $user->password = md5($request->password1);
+                $user->active = 1;
                 $user->save();
                 return redirect('/login');
             } else {
@@ -168,6 +169,12 @@ class ValidationController extends Controller
         );
         $context  = stream_context_create($param);
         return file_get_contents($url, false, $context);
+    }
+
+    function lockUser($id){
+        $user = User::find($id);
+        $user->active = 0;
+        $user->save;
     }
 
 }
