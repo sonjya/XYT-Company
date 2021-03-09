@@ -9,6 +9,7 @@ use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    session(['entries' => '3']);
     return view('index');
 });
 
@@ -18,6 +19,7 @@ Route::get('/welcome', function () {
 
 Route::get('/logout', function () {
     session(['name' => '']);
+    session(['id' => '']);
     session(['role' => '']);
     return redirect('/');
 });
@@ -79,6 +81,8 @@ Route::post('/product/additem', [ProductController::class, 'addItem']);
 Route::get('/product/restore/{id}', [ProductController::class, 'restoreItem']);
 Route::post('/product/search', [ProductController::class, 'searchItem']);
 Route::post('/product/update', [ProductController::class, 'updateItem']);
+Route::post('/backupdatabase', [ValidationController::class, 'backupDatabase']);
+Route::post('/restoredatabase', [ValidationController::class, 'restoreDatabase']);
 
 //transaction updates
 Route::get('/transaction/pending/{id}',[TransactionController::class,'pending']);

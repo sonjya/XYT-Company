@@ -15,7 +15,7 @@
                 </div>
                 @if (session('msgerr'))
                 <script>
-                    alert("Cart is empty")
+                    alert("Cart is empty");
                 </script>
                 @elseif (session('msgerrr'))
                 <script>

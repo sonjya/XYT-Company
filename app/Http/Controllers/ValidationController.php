@@ -12,8 +12,14 @@ use Throwable;
 class ValidationController extends Controller
 {
 
+    var $apiCode = "TR-XYTCO139930_PR658";
+    var $apiPassword = "5xu{i3(dze";
+
     public function authenticate(Request $request) 
     {   
+
+        $entriesLeft = session('entries');
+
         $data = request()->validate([
             'username' =>  'required',
             'password' => 'required',
@@ -51,13 +57,31 @@ class ValidationController extends Controller
                 return redirect('/shop');
             } else {
                 session(['name' => '']);
-                session(['id',$id]);
+                session(['id' => '']);
                 session(['role' => '']);    
                 session(['age' => '']);
                 return redirect('/');
             }
         } else {
-            return redirect()->back()->with('msgerr','Username and Password mismatched. Entries Left: ');
+            if($entriesLeft == 1){
+                $usertoLock = User::where('username',$request->username)->get();
+
+                foreach($usertoLock as $us){
+                    $use = $us->id;
+                }
+
+                if(count($usertoLock)){
+                    $this->lockUser($use);
+                    return redirect()->back()->with('msgerr','Notice: Your account has been locked');
+                }else{
+                    session(['entries' => '3']);
+                    return redirect()->back()->with('msgerr','Notice: We cannot find your account');
+                }
+            }else {
+                $entries = $entriesLeft - 1;
+                session(['entries' => $entries]);
+                return redirect()->back()->with('msgerr','Username and Password mismatched. Entries Left: ' . $entries);
+            }
         }
     }
 
@@ -98,8 +122,8 @@ class ValidationController extends Controller
 
     public function registration(Request $request){
 
-        $users = User::count();
-        $transactions = Transaction::count();
+        $users = User::count() * 2;
+        $transactions = Transaction::count() * 3;
         $code = "U" . $users . "T" . $transactions;
         $msg = "Holla! this is XYT, your OTP is " . $code;
 
@@ -113,6 +137,7 @@ class ValidationController extends Controller
                 $user->bday = $request->bday;
                 $user->username = $request->username;
                 $user->role='client';
+                $user->active = 0;
                 $user->password = md5($request->password1);
                 $user->securequestion = $request->question;
                 $user->secureanswer = md5($request->answer);
@@ -123,7 +148,7 @@ class ValidationController extends Controller
             }
 
             //itexmo
-            $res = $this->itexmo($request->phonenumber,$msg,"TR-DERYL804632_LCUTH","we]1uvc4uh");
+            $res = $this->itexmo($request->phonenumber,$msg,$this->apiCode,$this->apiPassword);
             if ($res == ""){
                 echo "iTexMo: No response from server!!!
                 Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
@@ -174,7 +199,46 @@ class ValidationController extends Controller
     function lockUser($id){
         $user = User::find($id);
         $user->active = 0;
-        $user->save;
+        $user->save();
+        session(['entries' => '3']);
     }
 
+    public function backupDatabase(){
+        try{
+            define("BACKUP_PATH", "D:/");
+
+            $server_name   = "localhost";
+            $username      = "root";
+            $database_name = "xyt";
+            $date_string   = date("m-d-Y");
+
+            $cmd = "C:/xampp/mysql/bin/mysqldump --routines -h {$server_name} -u {$username} {$database_name} > " . BACKUP_PATH . "{$date_string}_{$database_name}.sql";
+
+            exec($cmd);
+
+            return redirect('/admin')->with('alert', 'DATABASE BACKUP SUCCESSFULLY');
+
+        } catch(throwable $e){
+            die($e);
+        }
+    }   
+
+    public function restoreDatabase(Request $request){
+          try{
+
+            $path = "D:/" . $request->file;
+            $username      = "root";
+            $database_name = "xyt";
+
+            $cmd = "C:/xampp/mysql/bin/mysql -u {$username} {$database_name} < $path";
+            exec($cmd);
+
+            return redirect('/admin')->with('alert', 'DATABASE SUCCESSFULLY RESTORED');
+
+          } catch(Throwable $e){
+              die($e);
+          }
+    }
+
+    //validation controller...end
 }

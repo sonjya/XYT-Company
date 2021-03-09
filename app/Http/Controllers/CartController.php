@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+
+    var $apiCode = "TR-XYTCO139930_PR658";
+    var $apiPassword = "5xu{i3(dze";
+
     public function addtoCart(Request $request){
         if($request->stocks >= $request->quantity){
             $cart = new Cart;
@@ -87,7 +91,7 @@ class CartController extends Controller
             $trid = $trackID->trackingID;
         }
         $msg = "Hello " . session('name') . "! Thank you for purchase worth " . $request->total . ". Tracking ID: " . $trid;
-        $res = $this->itexmo($contact,$msg,"TR-DERYL804632_LCUTH","we]1uvc4uh");
+        $res = $this->itexmo($contact,$msg,$this->apiCode,$this->apiPassword);
         if ($res == ""){
             echo "iTexMo: No response from server!!!
             Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
