@@ -28,7 +28,7 @@ class ValidationController extends Controller
         $username = $request->username;
         $password = md5($request->password);
 
-        $users = User::where('username',$username)->where('password',$password)->where('active',1)->limit(1)->get();
+        $users = User::where('username',$username)->where('password',$password)->limit(1)->get();
         $a = User::where('username',$username)->where('password',$password)->where('active',1)->limit(1)->get(DB::raw('year(bday) as year'));
         
         foreach($a as $ag){
@@ -39,28 +39,33 @@ class ValidationController extends Controller
             $name = $user->name;
             $role = $user->role;
             $id = $user->id;
+            $active =$user->active;
         }
 
         if(count($users)){
-            if($role==='admin'){
-                session(['name' => $name]);
-                session(['id' => $id]);
-                session(['role' => $role]);
-                return redirect('/admin');
-            } elseif($role==='client'){
-                session(['name' => $name]);
-                session(['id' => $id]);
-                session(['role' => $role]);
-                session(['age'=> now()->year - $agy]);
-                $cart = Cart::where('user_id',$id)->count();
-                session(['cart' => $cart]);
-                return redirect('/shop');
-            } else {
-                session(['name' => '']);
-                session(['id' => '']);
-                session(['role' => '']);    
-                session(['age' => '']);
-                return redirect('/');
+            if($active === 1){
+                if($role==='admin'){
+                    session(['name' => $name]);
+                    session(['id' => $id]);
+                    session(['role' => $role]);
+                    return redirect('/admin');
+                } elseif($role==='client'){
+                    session(['name' => $name]);
+                    session(['id' => $id]);
+                    session(['role' => $role]);
+                    session(['age'=> now()->year - $agy]);
+                    $cart = Cart::where('user_id',$id)->count();
+                    session(['cart' => $cart]);
+                    return redirect('/shop');
+                } else {
+                    session(['name' => '']);
+                    session(['id' => '']);
+                    session(['role' => '']);    
+                    session(['age' => '']);
+                    return redirect('/');
+                }
+            } elseif($active === 0){
+                return redirect()->back()->with('msgerr','Your account has been locked, try to reset your password or contact us.');
             }
         } else {
             if($entriesLeft == 1){

@@ -21,7 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->string('paymentmethod');
             $table->string('status');
             $table->integer('active');
-            $table->string('updatedby');
+            $table->string('updatedby')->nullable();
             $table->timestamps();
         });
     }
