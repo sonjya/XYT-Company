@@ -202,10 +202,14 @@ class ValidationController extends Controller
     }
 
     function lockUser($id){
-        $user = User::find($id);
-        $user->active = 0;
-        $user->save();
-        session(['entries' => '3']);
+        try{
+            $user = User::find($id);
+            $user->active = 0;
+            $user->save();
+            session(['entries' => '3']);
+        } catch(Throwable $e) {
+            return redirect()->back()->with('msgerr','Notice: We cannot find your account');
+        } 
     }
 
     public function backupDatabase(){
@@ -221,7 +225,7 @@ class ValidationController extends Controller
 
             exec($cmd);
 
-            return redirect('/admin')->with('alert', 'DATABASE BACKUP SUCCESSFULLY');
+            return redirect('/admin')->with('alert', 'DATABASE SUCCESSFULLY BACKED UP');
 
         } catch(throwable $e){
             die($e);

@@ -8,7 +8,7 @@
     <body>
         @extends('frames.cnavbar')
         <br><br><br>
-        <div class="container-fluid">
+        <div class="container-fluid mb-5">
             <div class="row">
                 <div class="md-form col-sm-7">
                     <input class="form-control" name="itemsearch" type="text/submit" placeholder="Search" aria-label="Search" required>
@@ -18,6 +18,10 @@
                     alert("Cart is empty");
                 </script>
                 @elseif (session('msgerrr'))
+                <script>
+                    alert("Error in Quantity")
+                </script>
+                @elseif (session('msgerrrr'))
                 <script>
                     alert("Error in Quantity")
                 </script>

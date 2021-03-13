@@ -15,7 +15,7 @@ class CartController extends Controller
     var $apiPassword = "5xu{i3(dze";
 
     public function addtoCart(Request $request){
-        if($request->stocks >= $request->quantity){
+        if($request->stocks >= $request->quantity && $request->quantity > 0){
             $cart = new Cart;
             $cart->user_id = session('id');
             $cart->item_id = $request->itemid;
