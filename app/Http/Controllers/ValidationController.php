@@ -214,19 +214,20 @@ class ValidationController extends Controller
 
     public function backupDatabase(){
         try{
-            define("BACKUP_PATH", "D:/");
+            define("BACKUP_PATH", "D:/backup/");
+
+            date_default_timezone_set("Asia/Hong_Kong");
 
             $server_name   = "localhost";
             $username      = "root";
             $database_name = "xyt";
-            $date_string   = date("m-d-Y");
+            $date_string   = date("m-d-Y_h-i-s-a");
 
             $cmd = "C:/xampp/mysql/bin/mysqldump --routines -h {$server_name} -u {$username} {$database_name} > " . BACKUP_PATH . "{$date_string}_{$database_name}.sql";
 
             exec($cmd);
 
-            return redirect('/admin')->with('alert', 'DATABASE SUCCESSFULLY BACKED UP');
-
+            return redirect('/admin')->with('db-alert', 'DATABASE SUCCESSFULLY BACKED UP');
         } catch(throwable $e){
             die($e);
         }
@@ -235,14 +236,14 @@ class ValidationController extends Controller
     public function restoreDatabase(Request $request){
           try{
 
-            $path = "D:/" . $request->file;
+            $path = "D:/backup/" . $request->file;
             $username      = "root";
             $database_name = "xyt";
 
             $cmd = "C:/xampp/mysql/bin/mysql -u {$username} {$database_name} < $path";
             exec($cmd);
 
-            return redirect('/admin')->with('alert', 'DATABASE SUCCESSFULLY RESTORED');
+            return redirect('/admin')->with('rd-alert', 'DATABASE SUCCESSFULLY RESTORED');
 
           } catch(Throwable $e){
               die($e);

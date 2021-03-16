@@ -41,10 +41,14 @@
             </form>
 
         </div>
-        @if (session('alert'))
-        <div class="alert alert-success">
-            {{ session('alert') }}
-        </div>
+        @if (session('db-alert'))
+            <script>
+                alert("DATABASE BACKED UP SUCCESSFULLY");
+            </script>
+        @elseif(session('rd-alert'))
+            <script>
+                alert("DATABASE RESTORED SUCCESSFULLY");
+            </script>
         @endif
     </div>
 
