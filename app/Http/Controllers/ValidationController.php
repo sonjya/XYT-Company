@@ -214,6 +214,11 @@ class ValidationController extends Controller
 
     public function backupDatabase(){
         try{
+            
+            if (!file_exists('D:/backup')) {
+                mkdir('D:/backup', 0777, true);
+            }
+
             define("BACKUP_PATH", "D:/backup/");
 
             date_default_timezone_set("Asia/Hong_Kong");
@@ -228,6 +233,7 @@ class ValidationController extends Controller
             exec($cmd);
 
             return redirect('/admin')->with('db-alert', 'DATABASE SUCCESSFULLY BACKED UP');
+            
         } catch(throwable $e){
             die($e);
         }
